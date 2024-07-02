@@ -34,21 +34,37 @@ def guess_letter(guessed_letters):
             print("Invalid input. Please enter a single letter.")
 
 def play_round(word, category, player_name):
-    
+
+    max_attempts = len(word) + 3
     guessed_letters = set()
-    while True:
-        print(f"\nPlayer: {player_name}")
+
+    for attempt in range(1, max_attempts + 1):
+        print(f"\n\nPlayer: {player_name}")
         print(f"Category: {category}")
-        print(display_word(word, guessed_letters))
-        guess = guess_letter(guessed_letters)
+        hidden_word = ""
+        for letter in word:
+            if letter.lower() in guessed_letters:
+                hidden_word += letter
+            else:
+                hidden_word += "_"
+        print(hidden_word)
+        guess = input("Guess a letter: ").lower()
+        while len(guess) != 1 or not guess.isalpha() or guess in guessed_letters:
+            guess = input("Invalid guess. Please enter a single letter you haven't guessed yet: ").lower()
         guessed_letters.add(guess)
+
         if guess in word.lower():
             print("Correct!")
         else:
             print("Incorrect.")
-        if display_word(word, guessed_letters) == word:
+
+        if hidden_word == word:
             print(f"\nCongratulations, {player_name}, you guessed the word!")
             break
+
+    if attempt == max_attempts:
+        print(f"\nSorry, {player_name}. You ran out of attempts. The word was: {word}")
+
 
 def main():
     filename = "/Users/memmiofen/Desktop/mego /michael project/words_list.json"
