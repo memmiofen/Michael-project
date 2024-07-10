@@ -67,7 +67,7 @@ def play_round(word, category, player_name):
 
 
 def main():
-    filename = "/Users/memmiofen/Desktop/mego /michael project/words_list.json"
+    filename = "/Users/memmiofen/Library/Mobile Documents/com~apple~CloudDocs/Desktop/mego /words_list.json"
     word_list = load_word_list(filename)
     word_data = choose_word(word_list)
     word, category = word_data["word"], word_data["category"]
